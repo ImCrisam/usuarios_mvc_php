@@ -13,7 +13,7 @@
 
 <body>
     <?php
-    if (isset($_SESSION["validarSesionBackend"]) && $_SESSION["validarSesionBackend"] === "ok") {
+    if (isset($_SESSION["validarSesion"]) && $_SESSION["validarSesion"] === "ok") {
         include "modulos/header.php";
         include "modulos/menu.php";
         include "modulos/footer.php";
