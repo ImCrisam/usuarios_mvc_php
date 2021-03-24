@@ -78,13 +78,10 @@ class ModeloAdministrador
     public static function editarPerfil($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, email = :email, password = :password, perfil = :perfil, foto = :foto WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET email = :email, password = :password WHERE id = :id");
 
-        $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
         $stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
-        $stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
-        $stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {

@@ -23,6 +23,9 @@ session_start();
             if (
                 $_GET["ruta"] == "inicio" ||
                 $_GET["ruta"] == "perfil" ||
+                $_GET["ruta"] == "usuarios" ||
+                $_GET["ruta"] == "logup" ||
+                $_GET["ruta"] == "updateUser" ||
                 $_GET["ruta"] == "salir" ||
                 $_GET["ruta"] == "productos"
             ) {

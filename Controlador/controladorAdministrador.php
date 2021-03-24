@@ -46,10 +46,10 @@ class ControladorAdministrador
         }
     }
 
-    public static function ctrMostrarAdministrador($item, $valor)
+    public static function mostrarAdministrador($item, $valor)
     {
 
-        $tabla = "administrador";
+        $tabla = "usuario";
 
         $respuesta = ModeloAdministrador::mostrarAdministrador($tabla, $item, $valor);
 
@@ -63,7 +63,6 @@ class ControladorAdministrador
             if (
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["password"])
             ) {
-
                 $tabla = "usuario";
 
                 $encriptar = crypt($_POST["password"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
@@ -78,208 +77,56 @@ class ControladorAdministrador
 
                 if ($respuesta == "ok") {
 
-                    echo "<script>console.log( 'Debug Objects: " . "creado" . "' );</script>";
+
+                    echo '<script> window.location = "usuarios";</script>';
                 }
             } else {
 
-                echo "<script>console.log( 'Debug Objects: " . "erro" . "' );</script>";
+                echo '<script> window.location = "usuarios";</script>';
             }
         }
     }
 
-    public static function ctrEditarPerfil()
+    public static function editarPerfil()
     {
 
-        if (isset($_POST["idPerfil"])) {
+        if (isset($_POST["editarPassword"]) && $_POST["editarPassword"] != "") {
+            $tabla = "usuario";
 
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
+            if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])) {
+                echo "<script>console.log( 'Debug Objects: " . $_POST["iduser"] . "' );</script>";
 
-                /*=============================================
-                VALIDAR IMAGEN
-                =============================================*/
-
-                $ruta = $_POST["fotoActual"];
-
-                if (isset($_FILES["editarFoto"]["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"])) {
-
-                    list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
-
-                    $nuevoAncho = 500;
-                    $nuevoAlto  = 500;
-
-                    /*=============================================
-                    PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD
-                    =============================================*/
-
-                    if (!empty($_POST["fotoActual"])) {
-
-                        unlink($_POST["fotoActual"]);
-                    } else {
-
-                        /*  mkdir($directorio, 0755); */
-                    }
-
-                    /*=============================================
-                    DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-                    =============================================*/
-
-                    if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
-
-                        /*=============================================
-                        GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                        =============================================*/
-
-                        $aleatorio = mt_rand(100, 999);
-
-                        $ruta = "vistas/img/perfil/" . $aleatorio . ".jpg";
-
-                        $origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagejpeg($destino, $ruta);
-                    }
-
-                    if ($_FILES["editarFoto"]["type"] == "image/png") {
-
-                        /*=============================================
-                        GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                        =============================================*/
-
-                        $aleatorio = mt_rand(100, 999);
-
-                        $ruta = "vistas/img/perfil/" . $aleatorio . ".png";
-
-                        $origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagepng($destino, $ruta);
-                    }
-                }
-
-                $tabla = "administrador";
-
-                if ($_POST["editarPassword"] != "") {
-
-                    if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])) {
-
-                        $encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-                    } else {
-
-                        echo '<script>
-
-                                swal({
-                                      type: "error",
-                                      title: "¡La contraseña no puede ir vacía o llevar caracteres especiales!",
-                                      showConfirmButton: true,
-                                      confirmButtonText: "Cerrar"
-                                      }).then(function(result) {
-                                        if (result.value) {
-
-                                        window.location = "administrador";
-
-                                        }
-                                    })
-
-                            </script>';
-                    }
-                } else {
-
-                    $encriptar = $_POST["passwordActual"];
-                }
+                $encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
                 $datos = array(
-                    "id" => $_POST["idPerfil"],
-                    "nombre"            => $_POST["editarNombre"],
+                    "id" => $_POST["iduser"],
                     "email"             => $_POST["editarEmail"],
                     "password"          => $encriptar,
-                    "perfil"            => $_POST["editarPerfil"],
-                    "foto"              => $ruta
                 );
 
                 $respuesta = ModeloAdministrador::editarPerfil($tabla, $datos);
 
                 if ($respuesta == "ok") {
 
-                    echo '<script>
-
-                    swal({
-                          type: "success",
-                          title: "El perfil ha sido editado correctamente",
-                          showConfirmButton: true,
-                          confirmButtonText: "Cerrar"
-                          }).then(function(result) {
-                                    if (result.value) {
-
-                                    window.location = "perfil";
-
-                                    }
-                                })
-
-                    </script>';
+                    echo '<script> window.location = "usuarios";</script>';
                 }
-            } else {
-
-                echo '<script>
-
-                    swal({
-                          type: "error",
-                          title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-                          showConfirmButton: true,
-                          confirmButtonText: "Cerrar"
-                          }).then(function(result) {
-                            if (result.value) {
-
-                            window.location = "administrador";
-
-                            }
-                        })
-
-                </script>';
             }
         }
     }
 
 
-    public static function ctrEliminarPerfil()
+    public static function eliminarPerfil()
     {
 
         if (isset($_GET["idPerfil"])) {
-
-            $tabla = "administrador";
+            echo '<script> colsole.log("' . $_GET["idPerfil"] . '")</script>';
+            $tabla = "usuario";
             $datos = $_GET["idPerfil"];
-
-            if ($_GET["fotoPerfil"] != "") {
-
-                unlink($_GET["fotoPerfil"]);
-            }
 
             $respuesta = ModeloAdministrador::eliminarPerfil($tabla, $datos);
 
             if ($respuesta == "ok") {
-
-                echo '<script>
-
-                swal({
-                      type: "success",
-                      title: "El perfil ha sido borrado correctamente",
-                      showConfirmButton: true,
-                      confirmButtonText: "Cerrar",
-                      closeOnConfirm: false
-                      }).then(function(result) {
-                                if (result.value) {
-
-                                window.location = "perfil";
-
-                                }
-                            })
-
-                </script>';
+                echo '<script> window.location = "usuarios";</script>';
             }
         }
     }

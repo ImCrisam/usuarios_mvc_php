@@ -5,8 +5,8 @@
             <span><?php echo $_SESSION["email"]; ?></span>
         </div>
         <div class="top-right mx-3">
-            <a class="btn btn-primary" href="Productos">Productos</a>
-            <a class="btn btn-info" href="Usuarios">Usuarios</a>
+            <a class="btn btn-primary" href="productos">Productos</a>
+            <a class="btn btn-info" href="usuarios">Usuarios</a>
             <a class="btn btn-danger" href="salir">Salir</a>
         </div>
         </div>
