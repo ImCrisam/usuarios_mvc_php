@@ -5,7 +5,7 @@ class ControladorAdministrador
 
     public function login()
     {
-        if (isset($_POST["email"]) || $_POST) {
+        if (isset($_POST["email"]) && $_POST) {
             if (
                 preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"]) &&
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["password"])
@@ -119,7 +119,21 @@ class ControladorAdministrador
     {
         $tabla = "usuario";
         $respuesta = ModeloAdministrador::eliminarPerfil($tabla, $id);
-        
+
+        if ($respuesta == "ok") {
+            echo '<script> window.location = "usuarios";</script>';
+        }
+    }
+    public static function updateEstado($id)
+    {
+        $data =explode("-",$id);
+        $tabla = "usuario";
+        $setColum = "estado";
+        $setValor = $data[1]==0? 1:0;
+        $whereColum = "id"; 
+        $whereValor = $data[0];
+        $respuesta = ModeloAdministrador::actualizarPerfil($tabla, $setColum, $setValor, $whereColum, $whereValor);
+
         if ($respuesta == "ok") {
             echo '<script> window.location = "usuarios";</script>';
         }

@@ -27,6 +27,7 @@ session_start();
                 $_GET["ruta"] == "logup" ||
                 $_GET["ruta"] == "updateUser" ||
                 $_GET["ruta"] == "deleteUser" ||
+                $_GET["ruta"] == "activateUser" ||
                 $_GET["ruta"] == "salir" ||
                 $_GET["ruta"] == "productos"
             ) {

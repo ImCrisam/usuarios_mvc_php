@@ -14,15 +14,12 @@ class ModeloAdministrador
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetch();
-
         } else {
 
             $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
             $stmt->execute();
             return $stmt->fetchAll();
-
         }
-
     }
 
     public static function actualizarPerfil($tabla, $item1, $valor1, $item2, $valor2)
@@ -36,17 +33,14 @@ class ModeloAdministrador
         if ($stmt->execute()) {
 
             return "ok";
-
         } else {
 
             return "error";
-
         }
 
-       /*  $stmt->close(); */
+        /*  $stmt->close(); */
 
         $stmt = null;
-
     }
 
 
@@ -62,17 +56,14 @@ class ModeloAdministrador
         if ($stmt->execute()) {
 
             return "ok";
-
         } else {
 
             return "error";
-
         }
 
-       /*  $stmt->close(); */
+        /*  $stmt->close(); */
 
         $stmt = null;
-
     }
 
     public static function editarPerfil($tabla, $datos)
@@ -87,17 +78,14 @@ class ModeloAdministrador
         if ($stmt->execute()) {
 
             return "ok";
-
         } else {
 
             return "error";
-
         }
 
         /* $stmt->close(); */
 
         $stmt = null;
-
     }
 
 
@@ -111,17 +99,13 @@ class ModeloAdministrador
         if ($stmt->execute()) {
 
             return "ok";
-
         } else {
 
             return "error";
-
         }
 
-    /*     $stmt->close(); */
+        /*     $stmt->close(); */
 
         $stmt = null;
-
     }
-
 }

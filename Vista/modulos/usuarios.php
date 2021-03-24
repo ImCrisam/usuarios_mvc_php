@@ -40,18 +40,19 @@
 
                                     if ($value["estado"] != 0) {
 
-                                        echo '<td><button class="btn btn-success  " idPerfil="' . $value["id"] . '" estadoPerfil="0" id="btnActivar">Activado</button></td>';
+                                        echo '<td><a class="btn btn-success  "  href="activateUser?id=' . $value["id"] . '-' . $value["estado"] . '">Activado</a></td>';
                                     } else {
 
-                                        echo '<td><button class="btn btn-secondary  " idPerfil="' . $value["id"] . '" estadoPerfil="1">Desactivado</button></td>';
+                                        echo '<td><a class="btn btn-secondary  " href="activateUser?id=' . $value["id"] . '-' . $value["estado"] . '">Desactivado</a></td>';
                                     }
 
                                     echo '<td>
 
                           <div class="btn-group">
 
-                            <a class="btn btn-warning " idPerfil="' . $value["id"] . '" href="updateUser?id='.$value["id"] . '">Editar</a>
-                            <a class="btn btn-danger " idPerfil="' . $value["id"] . '" href="deleteUser?id='.$value["id"] . '">Eliminar</a>
+                            <a class="btn btn-warning " idPerfil="' . $value["id"] . '" href="updateUser?id=' . $value["id"] . '">Editar</a>
+                            <a class="btn btn-danger " idPerfil="' . $value["id"] . '" href="deleteUser?id=' . $value["id"] . '">Eliminar</a>
+
 
                           </div>
 
