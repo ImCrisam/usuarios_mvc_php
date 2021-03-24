@@ -51,8 +51,7 @@
                           <div class="btn-group">
 
                             <a class="btn btn-warning " idPerfil="' . $value["id"] . '" href="updateUser?id='.$value["id"] . '">Editar</a>
-
-                            <button class="btn btn-danger btnEliminarPerfil" idPerfil="' . $value["id"] . '">Eliminar</button>
+                            <a class="btn btn-danger " idPerfil="' . $value["id"] . '" href="deleteUser?id='.$value["id"] . '">Eliminar</a>
 
                           </div>
 
@@ -72,10 +71,3 @@
         </div>
     </div>
 </div>
-
-<?php
-
-$eliminarPerfil = new ControladorAdministrador();
-$eliminarPerfil->eliminarPerfil();
-
-?>

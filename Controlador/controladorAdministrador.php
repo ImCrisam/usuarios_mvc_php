@@ -115,19 +115,13 @@ class ControladorAdministrador
     }
 
 
-    public static function eliminarPerfil()
+    public static function eliminarPerfil($id)
     {
-
-        if (isset($_GET["idPerfil"])) {
-            echo '<script> colsole.log("' . $_GET["idPerfil"] . '")</script>';
-            $tabla = "usuario";
-            $datos = $_GET["idPerfil"];
-
-            $respuesta = ModeloAdministrador::eliminarPerfil($tabla, $datos);
-
-            if ($respuesta == "ok") {
-                echo '<script> window.location = "usuarios";</script>';
-            }
+        $tabla = "usuario";
+        $respuesta = ModeloAdministrador::eliminarPerfil($tabla, $id);
+        
+        if ($respuesta == "ok") {
+            echo '<script> window.location = "usuarios";</script>';
         }
     }
 }
