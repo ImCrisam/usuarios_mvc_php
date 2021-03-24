@@ -5,22 +5,21 @@ class ControladorAdministrador
 
     public function login()
     {
-        if (isset($_POST["email"])) {
+        if (isset($_POST["email"]) || $_POST) {
             if (
                 preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email"]) &&
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["password"])
             ) {
                 $encriptar = crypt($_POST["password"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-                
+
                 $tabla = "usuario";
                 $item  = "email";
                 $valor = $_POST["email"];
-                
+
                 $respuesta = ModeloAdministrador::mostrarAdministrador($tabla, $item, $valor);
-                
+
                 if ($respuesta["email"] == $_POST["email"] && $respuesta["password"] == $encriptar) {
                     if ($respuesta["estado"] == 1) {
-                        echo "<script>console.log( 'Debug Objects: " . "entra" . "' );</script>";
 
                         $_SESSION["validarSesion"] = "ok";
                         $_SESSION["id"]                   = $respuesta["id"];
@@ -36,7 +35,6 @@ class ControladorAdministrador
 
                         echo '<br>
                         <div class="alert alert-warning">Este usuario aún no está activado</div>';
-                        echo "<script>console.log( 'Debug Objects: " . "erro" . "' );</script>";
                     }
                 } else {
 
@@ -81,19 +79,13 @@ class ControladorAdministrador
                 if ($respuesta == "ok") {
 
                     echo "<script>console.log( 'Debug Objects: " . "creado" . "' );</script>";
-
                 }
             } else {
 
                 echo "<script>console.log( 'Debug Objects: " . "erro" . "' );</script>";
-
             }
         }
     }
-
-    /*=============================================
-EDITAR PERFIL
-=============================================*/
 
     public static function ctrEditarPerfil()
     {
@@ -253,9 +245,6 @@ EDITAR PERFIL
         }
     }
 
-    /*=============================================
-    ELIMINAR PERFIL
-    =============================================*/
 
     public static function ctrEliminarPerfil()
     {
